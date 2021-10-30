@@ -1,4 +1,4 @@
-## v1.0.0 
+## [1.0.0] 
 ### Added
 - New visual identity by [@tylerfortune8](https://github.com/tylerfortune8).
 - Version navigation.
