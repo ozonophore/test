@@ -20,7 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          echo "Body: ${{ steps.github_release.outputs.changelog }}"
+          echo "Body: ${{ steps.github_release.outputs.changes }}"
       - run: |
           echo "Body: ${{ steps.github_release.outputs.version }}"
       - run: |
