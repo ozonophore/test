@@ -15,7 +15,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v2
         with:
           validation_depth: 10
-          version: "0.0.8"
+          version: "1.0.0"
           path: ./CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -23,3 +23,7 @@ jobs:
           echo "Body: ${{ steps.github_release.outputs.changelog }}"
       - run: |
           echo "Body: ${{ steps.github_release.outputs.version }}"
+      - run: |
+          echo "Body: ${{ steps.github_release.outputs.date }}"
+      - run: |
+          echo "Body: ${{ steps.github_release.outputs.status }}"
