@@ -8,6 +8,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Build Changelog
         id: github_release
         uses: mindsers/changelog-reader-action@v2
