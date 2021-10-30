@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed foldouts in Dutch translation
 
-## [1.1.0] - 2019-02-15
+## [0.1.27] - 2019-02-15
 
 ### Added
 
