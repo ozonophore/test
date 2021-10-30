@@ -21,3 +21,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           echo "Body: ${{ steps.github_release.outputs.changelog }}"
+      - run: |
+          echo "Body: ${{ steps.github_release.outputs.version }}"
