@@ -1,15 +1,22 @@
 name: 'TEST'
 on:
+  push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   release:
-    if: startsWith(github.ref, 'refs/tags/')
     runs-on: windows-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Build Changelog
         id: github_release
-        uses: mikepenz/release-changelog-builder-action@v1
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          validation_depth: 10
+          version: "0.1.27"
+          path: ./CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install node
@@ -18,4 +25,10 @@ jobs:
           node-version: '14'
           always-auth: true
       - run: |
-          echo "Body: ${{ steps.github_release.outputs.changelog }}"
+          echo "Body: ${{ steps.github_release.outputs.changes }}"
+      - run: |
+          echo "Body: ${{ steps.github_release.outputs.version }}"
+      - run: |
+          echo "Body: ${{ steps.github_release.outputs.date }}"
+      - run: |
+          echo "Body: ${{ steps.github_release.outputs.status }}"
