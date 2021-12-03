@@ -29,12 +29,12 @@ jobs:
           echo "Body: ${{ steps.github_release.outputs.status }}"
       - name: Split Action
         id: split
-        uses: JungWinter/split@v2
+        uses: rishabhgupta/split-by@v1
         with:
         # String to split
-          msg: '0.1.23-alpha' 
+          string: '0.1.23-alpha' 
         # The delimiter to split the string
-          separator: '-'
+          split-by: '-'
       - run: |
           echo "Version: ${{ steps.split.outputs._0 }}"
           
