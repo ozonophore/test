@@ -36,6 +36,6 @@ jobs:
         # The delimiter to split the string
           split-by: '-'
       - run: |
-          echo "Version: ${{ steps.split.outputs._1 }} ${{ steps.split.outputs._2 }}"
+          echo "Version: ${{ steps.split.outputs._1 }} ${{ steps.split.outputs._2 == '' ? 'latest' : '123' }}"
           
           
