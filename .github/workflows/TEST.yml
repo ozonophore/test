@@ -32,9 +32,9 @@ jobs:
         uses: rishabhgupta/split-by@v1
         with:
         # String to split
-          string: '0.1.23-alpha' 
+          string: '0.1.23 alpha' 
         # The delimiter to split the string
-          split-by: '-'
+          split-by: ' '
       - run: |
           echo "Version: ${{ steps.split.outputs._0 }}"
           
