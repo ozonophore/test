@@ -32,10 +32,10 @@ jobs:
         uses: JungWinter/split@v2
         with:
         # String to split
-          msg: "0.1.23-alpha" 
+          msg: '0.1.23-alpha' 
         # The delimiter to split the string
-          separator: "-"
+          separator: '-'
       - run: |
-          echo "Version: ${{ steps.split.outputs._1 }}"
+          echo "Version: ${{ steps.split.outputs._0 }}"
           
           
