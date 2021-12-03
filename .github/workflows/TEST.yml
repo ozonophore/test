@@ -1,8 +1,7 @@
 name: 'TEST'
 on:
-  push:
   pull_request:
-  workflow_dispatch:
+    types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
 jobs:
   release:
