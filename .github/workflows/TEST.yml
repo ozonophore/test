@@ -39,9 +39,9 @@ jobs:
         uses: haya14busa/action-cond@v1
         id: tag
         with:
-          cond: ${{ steps.split.outputs._2 == '' }}
+          cond: ${{ steps.split.outputs._1 == '' }}
           if_true: 'latest'  # string value
-          if_false: ${{ steps.split.outputs._2 }}
+          if_false: ${{ steps.split.outputs._1 }}
       - run: |
           echo "Version: ${{ steps.tag.outputs.value }}"
           
