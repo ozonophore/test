@@ -35,7 +35,14 @@ jobs:
           string: '0.1.23-alpha' 
         # The delimiter to split the string
           split-by: '-'
+      - name: Determine Checkout Depth
+        uses: haya14busa/action-cond@v1
+        id: tag
+        with:
+          cond: ${{ steps.split.outputs._2 == '' }}
+          if_true: 'latest'  # string value
+          if_false: ${{ steps.split.outputs._2 }}
       - run: |
-          echo "Version: ${{ steps.split.outputs._1 }} ${{ if (steps.split.outputs._2 == '') then 'latest' fi }}"
+          echo "Version: ${{ steps.tag.outputs.value }}"
           
           
