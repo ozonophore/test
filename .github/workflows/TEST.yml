@@ -44,5 +44,7 @@ jobs:
       - run: |
           echo "Version: ${{ steps.tag.outputs.value }}"
       - uses: dangoslen/changelog-enforcer@v2
+        with:
+          version: '0.1.30'
           
           
