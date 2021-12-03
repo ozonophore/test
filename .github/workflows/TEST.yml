@@ -27,3 +27,15 @@ jobs:
           echo "Body: ${{ steps.github_release.outputs.date }}"
       - run: |
           echo "Body: ${{ steps.github_release.outputs.status }}"
+      - name: Split Action
+        id: split
+        uses: JungWinter/split@v2
+        with:
+        # String to split
+          msg: "0.1.23-alpha" 
+        # The delimiter to split the string
+          separator: "-"
+      - run: |
+          echo "Version: ${{ steps.split.outputs._1 }}"
+          
+          
