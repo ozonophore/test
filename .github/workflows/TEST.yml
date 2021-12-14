@@ -14,7 +14,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v2
         with:
           validation_depth: 10
-          version: "0.1.27"
+          version: "0.2.00-beta"
           path: ./CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,29 +26,29 @@ jobs:
           echo "Body: ${{ steps.github_release.outputs.date }}"
       - run: |
           echo "Body: ${{ steps.github_release.outputs.status }}"
-      - name: Split Action
-        id: split
-        uses: rishabhgupta/split-by@v1
-        with:
-        # String to split
-          string: '0.1.23' 
-        # The delimiter to split the string
-          split-by: '-'
-      - name: Determine Checkout Depth
-        uses: haya14busa/action-cond@v1
-        id: tag
-        with:
-          cond: ${{ steps.split.outputs._1 == '' }}
-          if_true: 'latest'  # string value
-          if_false: ${{ steps.split.outputs._1 }}
-      - run: |
-          echo "Version: ${{ steps.tag.outputs.value }}"
-      - name: Changelog Creator
-        uses: okcredit/changelog-creator-action@v1.0.0
-        with:
-          milestone: 0.1.35
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Split Action
+#        id: split
+#        uses: rishabhgupta/split-by@v1
+#        with:
+#        # String to split
+#          string: '0.1.23'
+#        # The delimiter to split the string
+#          split-by: '-'
+#      - name: Determine Checkout Depth
+#        uses: haya14busa/action-cond@v1
+#        id: tag
+#        with:
+#          cond: ${{ steps.split.outputs._1 == '' }}
+#          if_true: 'latest'  # string value
+#          if_false: ${{ steps.split.outputs._1 }}
+#      - run: |
+#          echo "Version: ${{ steps.tag.outputs.value }}"
+#      - name: Changelog Creator
+#        uses: okcredit/changelog-creator-action@v1.0.0
+#        with:
+#          milestone: 0.1.35
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
           
           
