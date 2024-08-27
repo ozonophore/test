@@ -1,8 +1,7 @@
 name: Fake Check Workflow
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  on: [push, pull_request]
 
 jobs:
   create-check:
