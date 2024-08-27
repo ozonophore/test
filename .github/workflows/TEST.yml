@@ -1,7 +1,7 @@
 name: 'TEST'
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
+    types: []
 
 jobs:
   release:
@@ -25,30 +25,4 @@ jobs:
       - run: |
           echo "Body: ${{ steps.github_release.outputs.date }}"
       - run: |
-          echo "Body: ${{ steps.github_release.outputs.status }}"
-#      - name: Split Action
-#        id: split
-#        uses: rishabhgupta/split-by@v1
-#        with:
-#        # String to split
-#          string: '0.1.23'
-#        # The delimiter to split the string
-#          split-by: '-'
-#      - name: Determine Checkout Depth
-#        uses: haya14busa/action-cond@v1
-#        id: tag
-#        with:
-#          cond: ${{ steps.split.outputs._1 == '' }}
-#          if_true: 'latest'  # string value
-#          if_false: ${{ steps.split.outputs._1 }}
-#      - run: |
-#          echo "Version: ${{ steps.tag.outputs.value }}"
-#      - name: Changelog Creator
-#        uses: okcredit/changelog-creator-action@v1.0.0
-#        with:
-#          milestone: 0.1.35
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          
-          
+          echo "Body: ${{ steps.github_release.outputs.status }}"   
