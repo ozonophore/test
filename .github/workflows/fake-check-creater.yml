@@ -1,7 +1,6 @@
 name: Fake Check Workflow
 
-on:
-  on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   create-check:
