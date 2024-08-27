@@ -1,0 +1,49 @@
+name: Fake Check Workflow
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
+
+jobs:
+  create-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create "pending" check
+        id: create_check
+        run: |
+          response=$(curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/check-runs \
+            -d '{
+              "name": "fake-check",
+              "head_sha": "${{ github.sha }}",
+              "status": "in_progress",
+              "output": {
+                "title": "Fake Check",
+                "summary": "Waiting for manual approval"
+              }
+            }')
+          echo "::set-output name=check_run_id::$(echo $response | jq -r '.id')"
+
+      - name: Simulate waiting
+        run: sleep 10
+
+      - name: Update check status
+        run: |
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/check-runs/${{ steps.create_check.outputs.check_run_id }} \
+            -d '{
+              "status": "completed",
+              "conclusion": "success",
+              "output": {
+                "title": "Fake Check",
+                "summary": "Check completed successfully"
+              }
+            }'
