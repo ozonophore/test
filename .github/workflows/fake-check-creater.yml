@@ -21,7 +21,7 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/check-runs \
             -d '{
               "name": "fake-check",
-              "head_sha": "${{ GITHUB_SHA }}",
+              "head_sha": "${{ github.sha }}",
               "status": "in_progress",
               "output": {
                 "title": "Fake Check",
@@ -36,6 +36,7 @@ jobs:
       - name: Notify about pending status
         run: |
           echo "The check 'fake-check' is in status 'pending'."
+
 
 
 #      - name: Simulate waiting
