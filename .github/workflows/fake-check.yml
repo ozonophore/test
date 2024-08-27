@@ -25,10 +25,15 @@ jobs:
               "status": "in_progress",
               "output": {
                 "title": "Fake Check",
-                "summary": "Waiting for manual approval"
+                "summary": "The check is still pending."
               }
             }')
           echo "::set-output name=check_run_id::$(echo $response | jq -r '.id')"
+
+      - name: Notify about pending status
+        run: |
+          echo "The check 'fake-check' is in status 'pending'."
+
 
 #      - name: Simulate waiting
 #        run: sleep 60
