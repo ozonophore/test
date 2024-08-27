@@ -1,0 +1,60 @@
+name: Fake Check Workflow
+
+on: [push]
+
+jobs:
+  create-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display the commit SHA
+        run: echo "The commit SHA that triggered this workflow is ${{ github.sha }}"
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#        with:
+#          fetch-depth: 0
+
+      - name: Create "pending" check
+        id: create_check
+        run: |
+          response=$(curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/check-runs \
+            -d '{
+              "name": "fake-check",
+              "head_sha": "${{ github.sha }}",
+              "status": "in_progress",
+              "output": {
+                "title": "Fake Check",
+                "summary": "The check is still pending."
+              }
+            }')
+          echo "Response: $response"
+          check_run_id=$(echo $response | jq -r '.id')
+          echo "Check run ID: $check_run_id"
+          echo "::set-output name=check_run_id::$check_run_id"
+
+      - name: Notify about pending status
+        run: |
+          echo "The check 'fake-check' is in status 'pending'."
+
+
+
+#      - name: Simulate waiting
+#        run: sleep 60
+#
+#      - name: Update check status
+#        run: |
+#          curl -X PATCH \
+#            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+#            -H "Accept: application/vnd.github.v3+json" \
+#            https://api.github.com/repos/${{ github.repository }}/check-runs/${{ steps.create_check.outputs.check_run_id }} \
+#            -d '{
+#              "status": "completed",
+#              "conclusion": "success",
+#              "output": {
+#                "title": "Fake Check",
+#                "summary": "Check completed successfully"
+#              }
+#            }'
